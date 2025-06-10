@@ -45,12 +45,44 @@ class CreateTask extends CreateRecord
 
         $message = str_replace("\n", "\\n",  $message);
 
-    send_with_wapi(
+
+        if($receiver->send_noti_in_privete	){
+
+
+             send_with_wapi(
         auth: $settings->token,
         profileId: $settings->profile_id,
         phone: $receiver->phone.'@c.us',
         message: $message
     );
+
+
+        }
+
+
+
+  if($receiver->send_noti_in_group	){
+
+
+             send_with_wapi(
+        auth: $settings->token,
+        profileId: $settings->profile_id,
+        phone: $receiver->group_id,
+        message: $message
+    );
+
+
+        }
+
+
+
+
+
+
+
+
+
+
 }
 
 
