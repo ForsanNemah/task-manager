@@ -65,7 +65,7 @@ $settings = Setting::first();
             send_with_wapi(
                 auth: $settings->token,              // من جدول settings
                 profileId: $settings->profile_id,    // من جدول settings
-                phone: '966568430828',                // الرقم الثابت
+                phone: $settings->admin_group_id,                // الرقم الثابت
                 message: $message
             );
         }
