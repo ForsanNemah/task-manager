@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class TaskResource extends Resource
 {
@@ -48,11 +50,8 @@ Forms\Components\Select::make('receiver_id')
 
 Forms\Components\TextInput::make('task_url')
     ->label('رابط المهمة')
-    ->url()
-    ->prefix('https://')
-    ->placeholder('example.com/task')
-    ->maxLength(255)
-    ->nullable(),
+
+   ->required(),
 
 
 
@@ -87,10 +86,11 @@ Forms\Components\Textarea::make('done_info')
 Tables\Columns\TextColumn::make('receiver.name')->label('الموظف'),
             Tables\Columns\TextColumn::make('project.name')->label('المشروع'),
             Tables\Columns\TextColumn::make('title'),
+            /*
             Tables\Columns\IconColumn::make('status')
                 ->boolean()
                 ->label('تمت؟'),
-
+*/
 
 
 Tables\Columns\TextColumn::make('task_url')
@@ -98,6 +98,20 @@ Tables\Columns\TextColumn::make('task_url')
     ->url(fn ($record) => $record->task_url)
     ->limit(30)
     ->openUrlInNewTab(),
+
+
+
+       TextColumn::make('created_at')
+    ->label('تاريخ الإنشاء')
+    ->dateTime('d M Y - H:i')
+    ->sortable(),
+
+
+ ToggleColumn::make('status')
+    ->label('تم الإنجاز؟')
+    ->onColor('danger')
+    ->offColor(color: 'success')
+    ->sortable(),
 
 
 /*

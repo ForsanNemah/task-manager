@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Actions\DeleteAction;
 
 class UserResource extends Resource
 {
@@ -92,8 +93,24 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
 
 
+
+   DeleteAction::make()
+                ->requiresConfirmation() // ✅ تفعيل نافذة التأكيد
+                ->modalHeading('هل أنت متأكد من الحذف؟')
+                 ->visible(fn () => auth()->user()?->type === 'admin')
+                ->modalDescription('سيتم حذف هذا المستخدم وجميع المهام المرتبطة به نهائيًا ولا يمكن استرجاعها.')
+                ->modalButton('نعم، احذف'),
+
+
+
+
+
+
+/*
             Tables\Actions\DeleteAction::make()
                 ->visible(fn () => auth()->user()?->type === 'admin'),
+
+                */
 
             ])
             ->bulkActions([

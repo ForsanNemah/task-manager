@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Setting;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,8 @@ protected $fillable = [
         'status' => 'boolean',
     ];
 
+
+
     public function sender(): BelongsTo
     {
         return $this->belongsTo(User::class, 'sender_id');
@@ -36,4 +39,43 @@ protected $fillable = [
     {
         return $this->belongsTo(Project::class);
     }
+
+
+
+
+
+
+
+
+protected static function booted(): void
+{
+    static::updating(function (Task $task) {
+        if ($task->isDirty('status')) {
+            $newStatus = $task->status ? 'تمت' : 'لم تتم';
+            $userName = auth()->user()?->name ?? 'مستخدم غير معروف';
+            $message = "📌 تم تغيير حالة المهمة: '{$task->title}'\n"
+                     . "من قبل: {$userName}\n"
+                     . "الحالة الجديدة: {$newStatus}";
+
+                      $message = str_replace("\n", "\\n",  $message);
+
+$settings = Setting::first();
+
+            // إرسال عبر واتساب
+            send_with_wapi(
+                auth: $settings->token,              // من جدول settings
+                profileId: $settings->profile_id,    // من جدول settings
+                phone: '966568430828',                // الرقم الثابت
+                message: $message
+            );
+        }
+    });
+}
+
+
+
+
+
+
+
 }

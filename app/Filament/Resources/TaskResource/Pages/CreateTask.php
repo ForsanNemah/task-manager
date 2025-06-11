@@ -33,6 +33,7 @@ class CreateTask extends CreateRecord
 
     $message = "📌 مهمة جديدة لك\n"
         . "العنوان: {$task->title}\n"
+        . "المشروع: {$task->project?->name}\n"
         . "الوصف: {$task->description}\n"
         . "من: {$sender->name}\n"
         . "إلى: {$receiver->name}\n"
