@@ -31,12 +31,12 @@ class CreateTask extends CreateRecord
         return;
     }
 
-    $message = "📌 مهمة جديدة لك\n"
-        . "العنوان: {$task->title}\n"
-        . "المشروع: {$task->project?->name}\n"
-        . "الوصف: {$task->description}\n"
+    $message = "📌 مهمة جديدة لك\n \n"
+        . "العنوان: {$task->title}\n \n"
+        . "المشروع: {$task->project?->name}\n \n"
+        . "الوصف: {$task->description}\n \n"
         . "من: {$sender->name}\n"
-        . "إلى: {$receiver->name}\n"
+        . "إلى: {$receiver->name}\n \n"
         . "📅 التاريخ: " . Carbon::now()->format('Y-m-d H:i');
 
         require_once base_path('helpers/wapi.php');
