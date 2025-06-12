@@ -119,7 +119,7 @@ Tables\Columns\TextColumn::make('task_url')
     ->limit(30)
     ->openUrlInNewTab(),
 
-
+*/
 
        TextColumn::make('created_at')
     ->label('تاريخ الإنشاء')
