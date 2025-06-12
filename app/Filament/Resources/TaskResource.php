@@ -18,6 +18,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Forms\Components\Textarea;
 
 class TaskResource extends Resource
 {
@@ -45,7 +46,24 @@ Forms\Components\Select::make('receiver_id')
                 ->required(),
 
             Forms\Components\TextInput::make('title')->required(),
-            Forms\Components\Textarea::make('description'),
+
+
+           // Forms\Components\Textarea::make('description'),
+
+Textarea::make('description')
+    ->label('الوصف')
+
+    ->columnSpanFull()
+    ->rows(fn ($state) => max(3, ceil(strlen($state ?? '') / 80))),
+
+
+
+
+
+
+
+
+
             Forms\Components\Toggle::make('status')->label('تمت؟'),
             Forms\Components\Hidden::make('sender_id')->default(fn () => auth()->id()),
 
