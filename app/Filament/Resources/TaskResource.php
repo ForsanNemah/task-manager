@@ -17,7 +17,7 @@ use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
-
+use Filament\Tables\Actions\ViewAction;
 
 class TaskResource extends Resource
 {
@@ -93,7 +93,7 @@ Tables\Columns\TextColumn::make('receiver.name')->label('الموظف'),
                 ->boolean()
                 ->label('تمت؟'),
 */
-
+/*
 
 Tables\Columns\TextColumn::make('task_url')
     ->label('رابط المهمة')
@@ -163,10 +163,11 @@ Tables\Columns\TextColumn::make('task_url')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                    ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
