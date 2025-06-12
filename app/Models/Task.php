@@ -17,6 +17,7 @@ protected $fillable = [
     'status',
     'required_time',
     'done_info',
+     'task_url',
 ];
 
     protected $casts = [
