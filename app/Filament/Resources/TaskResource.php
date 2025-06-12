@@ -16,6 +16,8 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\DatePicker;
+
 
 class TaskResource extends Resource
 {
@@ -142,7 +144,20 @@ Tables\Columns\TextColumn::make('task_url')
         ]),
 
 
-
+  SelectFilter::make('created_at')
+                ->form([
+                    DatePicker::make('created_from')
+                        ->label('من تاريخ'),
+                    DatePicker::make('created_until')
+                        ->label('إلى تاريخ'),
+                ])
+                ->query(function ($query, array $data) {
+                    return $query
+                        ->when($data['created_from'], fn ($q) =>
+                            $q->whereDate('created_at', '>=', $data['created_from']))
+                        ->when($data['created_until'], fn ($q) =>
+                            $q->whereDate('created_at', '<=', $data['created_until']));
+                }),
 
 
             ])
@@ -182,8 +197,11 @@ Tables\Columns\TextColumn::make('task_url')
 
 public static function getEloquentQuery(): Builder
 {
+
+
     $user = auth()->user();
     $query = parent::getEloquentQuery();
+    /*
 
     if ($user->type === 'employee') {
         $query->where(function ($q) use ($user) {
@@ -192,6 +210,7 @@ public static function getEloquentQuery(): Builder
         });
     }
 
+    */
     return  $query->latest();
 }
 
