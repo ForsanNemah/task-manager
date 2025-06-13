@@ -19,6 +19,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Forms\Components\Textarea;
+use Filament\Pages\Page;
+use Filament\Forms\Components\Toggle;
 
 class TaskResource extends Resource
 {
@@ -64,7 +66,16 @@ Textarea::make('description')
 
 
 
-            Forms\Components\Toggle::make('status')->label('تمت؟'),
+           // Forms\Components\Toggle::make('status')->label('تمت؟'),
+
+
+Toggle::make('status')
+    ->label('تم الإنجاز؟')
+    ->default(false)
+    ->visible(fn (Page $livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord),
+
+
+
             Forms\Components\Hidden::make('sender_id')->default(fn () => auth()->id()),
 
 
