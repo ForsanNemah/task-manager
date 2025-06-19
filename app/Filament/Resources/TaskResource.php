@@ -21,6 +21,8 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Pages\Page;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Card;
 
 class TaskResource extends Resource
 {
@@ -28,6 +30,13 @@ class TaskResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+/*************  ✨ Windsurf Command ⭐  *************/
+        /**
+         * Gets the form schema for the resource.
+         *
+         * @return array
+         */
+/*******  0b24b937-8f3f-4344-badd-6e6ebe908b4c  *******/
     public static function form(Form $form): Form
     {
         return $form
@@ -69,10 +78,7 @@ Textarea::make('description')
            // Forms\Components\Toggle::make('status')->label('تمت؟'),
 
 
-Toggle::make('status')
-    ->label('تم الإنجاز؟')
-    ->default(false)
-    ->visible(fn (Page $livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord),
+
 
 
 
@@ -91,11 +97,52 @@ Forms\Components\TextInput::make('required_time')
     ->numeric()
     ->required(),
 
+
+
+
+
+Card::make([
+
+
+
+
+
+
+    TextInput::make('task_url_after')
+    ->label('رابط بعد الإنجاز')
+    ->url()
+    ->visibleOn('edit'),
+
+TextInput::make('task_time_after')
+    ->label('مدة التنفيذ (دقائق)')
+    ->numeric()
+    ->visibleOn('edit'),
+
+
+
 Forms\Components\Textarea::make('done_info')
     ->label('ملاحظات الإنجاز')
     ->nullable(),
 
 
+    Toggle::make('status')
+    ->label('تم الإنجاز؟')
+    ->default(false)
+    ->visible(fn (Page $livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord),
+
+
+
+
+
+
+
+
+
+
+])
+->columnSpanFull()
+->visibleOn('edit')
+->label('تفاصيل بعد الإنجاز'),
 
 
 

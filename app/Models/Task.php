@@ -15,10 +15,13 @@ protected $fillable = [
     'title',
     'description',
     'status',
+    'task_url',
+    'task_url_after',
+    'task_time_after',
     'required_time',
     'done_info',
-     'task_url',
 ];
+
 
     protected $casts = [
         'status' => 'boolean',

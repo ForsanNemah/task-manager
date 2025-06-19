@@ -12,8 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
-
+use Filament\Forms\Components\TextInput;
 
 class ProjectResource extends Resource
 {
@@ -28,6 +27,17 @@ class ProjectResource extends Resource
 
                 Forms\Components\TextInput::make('name')
                 ->required(),
+
+
+                TextInput::make('linke_tree_url')
+    ->label('رابط Linktree')
+    ->url()
+    ->nullable(),
+
+TextInput::make('social_media_url')
+    ->label('رابط وسائل التواصل')
+    ->url()
+    ->nullable(),
 
             Forms\Components\DatePicker::make('start_date')
                 ->label('تاريخ البدء'),

@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
-   protected $fillable = ['name', 'start_date', 'enabled'];
+ protected $fillable = [
+    'name',
+    'linke_tree_url',
+    'social_media_url',
+];
 
 protected $casts = [
     'start_date' => 'date',
