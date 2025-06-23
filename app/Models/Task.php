@@ -39,6 +39,8 @@ protected $fillable = [
         return $this->belongsTo(User::class, 'receiver_id');
     }
 
+
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
