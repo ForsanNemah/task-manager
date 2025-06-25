@@ -30,13 +30,6 @@ class TaskResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-/*************  ✨ Windsurf Command ⭐  *************/
-        /**
-         * Gets the form schema for the resource.
-         *
-         * @return array
-         */
-/*******  0b24b937-8f3f-4344-badd-6e6ebe908b4c  *******/
     public static function form(Form $form): Form
     {
         return $form
