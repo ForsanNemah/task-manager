@@ -20,6 +20,7 @@ protected $fillable = [
     'task_time_after',
     'required_time',
     'done_info',
+      'is_received',
 ];
 
 
@@ -56,7 +57,10 @@ protected $fillable = [
 protected static function booted(): void
 {
     static::updating(function (Task $task) {
+
+
         if ($task->isDirty('status')) {
+
             $newStatus = $task->status ? 'تمت' : 'لم تتم';
             $userName = auth()->user()?->name ?? 'مستخدم غير معروف';
             $message = "📌 تم تغيير حالة المهمة: '{$task->title}'\n"
@@ -75,6 +79,56 @@ $settings = Setting::first();
                 message: $message
             );
         }
+
+
+
+
+
+
+
+
+
+
+
+ if ($task->isDirty('is_received')) {
+
+            $userName = $task->receiver?->name ?? 'موظف غير معروف';
+
+            $newStatus = $task->is_received
+                ? "📩 أكد الموظف {$userName} استلام المهمة: \"{$task->title}\""
+                : "⚠️ ألغى الموظف {$userName} استلام المهمة: \"{$task->title}\"";
+
+            // نظف السطر للنص
+            $message = str_replace("\n", "\\n", $newStatus);
+
+           // dd($message);
+            // إعدادات WAPI
+            $settings = Setting::first();
+            if (!$settings) return;
+
+            send_with_wapi(
+                auth: $settings->token,
+                profileId: $settings->profile_id,
+                phone: $settings->admin_group_id, // رقم المسؤول/القروب
+                message: $message
+            );
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     });
 }
 

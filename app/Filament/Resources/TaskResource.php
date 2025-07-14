@@ -178,6 +178,12 @@ Tables\Columns\TextColumn::make('task_url')
     ->sortable(),
 
 
+     ToggleColumn::make('is_received')
+    ->label('تم  الاستلام')
+    ->onColor('danger')
+    ->offColor(color: 'success')
+    ->sortable(),
+
  ToggleColumn::make('status')
     ->label('تم الإنجاز؟')
     ->onColor('danger')
