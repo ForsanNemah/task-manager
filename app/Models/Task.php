@@ -94,17 +94,20 @@ $settings = Setting::first();
 
             $userName = $task->receiver?->name ?? 'موظف غير معروف';
 
-            $newStatus = $task->is_received
+            $message = $task->is_received
                 ? "📩 أكد الموظف {$userName} استلام المهمة: \"{$task->title}\""
                 : "⚠️ ألغى الموظف {$userName} استلام المهمة: \"{$task->title}\"";
 
             // نظف السطر للنص
-            $message = str_replace("\n", "\\n", $newStatus);
+            $message = str_replace("\n", "\\n", $message);
+             $message = str_replace('"', " ", $message);
 
-           // dd($message);
+            //dd($message);
             // إعدادات WAPI
             $settings = Setting::first();
-            if (!$settings) return;
+           // if (!$settings) return;
+
+           //dd($settings);
 
             send_with_wapi(
                 auth: $settings->token,
